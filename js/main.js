@@ -1,5 +1,5 @@
 'use strict';
-
+// module3-task1
 const QUANTITY_POSTS = 8;
 const TYPES = [`palace`, `flat`, `house`, `bungalow`];
 const CHECKTIME = [`12:00`, `13:00`, `14:00`];
