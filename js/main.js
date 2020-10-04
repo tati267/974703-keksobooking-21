@@ -1,14 +1,24 @@
 'use strict';
 // module3-task1
+const PINS_AREA = document.querySelector(`.map__pins`);
+const map = document.querySelector(`.map`);
+map.classList.remove(`map--faded`);
+
 const POSTS_NUMBER = 8;
 const TYPES = [`palace`, `flat`, `house`, `bungalow`];
 const CHECKTIME = [`12:00`, `13:00`, `14:00`];
 const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
 const PHOTOS = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
-
-const PINS_AREA = document.querySelector(`.map__pins`);
-const map = document.querySelector(`.map`);
-map.classList.remove(`map--faded`);
+const MIN_PRICE = 1000;
+const MAX_PRICE = 1000000;
+const MIN_ROOMS = 1;
+const MAX_ROOMS = 5;
+const MIN_GUESTS = 1;
+const MAX_GUESTS = 10;
+const MIN_LOCATION_X = 0;
+const MAX_LOCATION_X = map.clientWidth;
+const MIN_LOCATION_Y = 130;
+const MAX_LOCATION_Y = 630;
 
 // случайное число в указаном диапазоне
 const getRandomInteger = (min, max) => {
@@ -33,10 +43,10 @@ const getPinAd = () => {
       offer: {
         title: `Заголовок предложения`,
         address: `x, y`,
-        price: getRandomInteger(1000, 1000000),
+        price: getRandomInteger(MIN_PRICE, MAX_PRICE),
         type: getRandomArrayElement(TYPES),
-        rooms: getRandomInteger(1, 5),
-        guests: getRandomInteger(1, 10),
+        rooms: getRandomInteger(MIN_ROOMS, MAX_ROOMS),
+        guests: getRandomInteger(MIN_GUESTS, MAX_GUESTS),
         checkin: getRandomArrayElement(CHECKTIME),
         checkout: getRandomArrayElement(CHECKTIME),
         features: getRandomArr(FEATURES),
@@ -44,8 +54,8 @@ const getPinAd = () => {
         photos: getRandomArrayElement(PHOTOS)
       },
       location: {
-        x: getRandomInteger(0, map.clientWidth),
-        y: getRandomInteger(130, 630),
+        x: getRandomInteger(MIN_LOCATION_X, MAX_LOCATION_X),
+        y: getRandomInteger(MIN_LOCATION_Y, MAX_LOCATION_Y),
       }
     });
   }
@@ -63,8 +73,8 @@ const createPinAd = (data) => {
 
     pin.style = `left: ${item.location.x - img.width / 2}px;
                      top: ${item.location.y - img.height}px;`;
-    pin.querySelector(`img`).src = item.author.avatar;
-    pin.querySelector(`img`).alt = item.offer.title;
+    img.src = item.author.avatar;
+    img.alt = item.offer.title;
     fragment.append(pin);
   });
 
