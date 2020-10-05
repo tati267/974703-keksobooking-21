@@ -32,8 +32,8 @@ const getRandomArrayElement = (arr) => {
 const getRandomArr = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
 // Функция которая возвращает объекты
+const makePost = [];
 const getPinAd = () => {
-  const makePost = [];
   // Цикл который добавляет объекты
   for (let i = 0; i < POSTS_NUMBER; i++) {
     makePost.push({
@@ -61,7 +61,7 @@ const getPinAd = () => {
   }
   return makePost;
 };
-
+getPinAd();
 // Заполняет шаблон для отрисовки пина
 const createPinAd = (data) => {
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
@@ -84,3 +84,27 @@ const createPinAd = (data) => {
 // Отрисовывает сгенерированные DOM-элементы в блок mapPins
 const pinAd = getPinAd();
 mapPins.append(createPinAd(pinAd));
+const mapFilters = map.querySelector(`.map__filters-container`);
+
+const createCard = (obj) => {
+  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+  const cardItem = cardTemplate.cloneNode(true);
+  const roomNum = obj.offer.rooms;
+  const guestNum = obj.offer.guests;
+  const guestPhrase = ` гостей `;
+  const roomPhrase = ` комнаты `;
+  map.insertBefore(cardItem, mapPins);
+
+  cardItem.querySelector(`.popup__title`).textContent = obj.offer.title;
+  cardItem.querySelector(`.popup__text--address`).textContent = obj.offer.address;
+  cardItem.querySelector(`.popup__text--price`).innerHTML = `${obj.offer.price} &#x20bd/ночь`;
+  cardItem.querySelector(`.popup__type`).textContent = obj.offer.type;
+  cardItem.querySelector(`.popup__text--capacity`).textContent = `${roomNum}${roomPhrase} для ${guestNum}${guestPhrase}`;
+  cardItem.querySelector(`.popup__text--time`).textContent = `Заезд после ${obj.offer.checkin} выезд после ${obj.offer.checkout}`;
+  cardItem.querySelector(`.popup__description`).textContent = obj.offer.description;
+  cardItem.querySelector(`.popup__avatar`).src = obj.author.avatar;
+
+  mapFilters.insertBefore(cardItem, null);
+};
+
+createCard(makePost[0]);
