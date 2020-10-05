@@ -1,6 +1,6 @@
 'use strict';
 // module3-task1
-const PINS_AREA = document.querySelector(`.map__pins`);
+const mapPins = document.querySelector(`.map__pins`);
 const map = document.querySelector(`.map`);
 map.classList.remove(`map--faded`);
 
@@ -81,6 +81,6 @@ const createPinAd = (data) => {
   return fragment;
 };
 
-// Oтрисовывает пины в DOM
+// Отрисовывает сгенерированные DOM-элементы в блок mapPins
 const pinAd = getPinAd();
-PINS_AREA.append(createPinAd(pinAd));
+mapPins.append(createPinAd(pinAd));
