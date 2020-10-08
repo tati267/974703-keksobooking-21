@@ -5,7 +5,9 @@ const map = document.querySelector(`.map`);
 map.classList.remove(`map--faded`);
 
 const POSTS_NUMBER = 8;
-const TYPES = {
+const TYPES_EN = [`palace`, `flat`, `house`, `bungalow`];
+
+const TYPES_RU = {
   palace: `Дворец`,
   flat: `Квартира `,
   house: `Дом`,
@@ -47,7 +49,7 @@ const getPinAd = () => {
         title: `Заголовок предложения`,
         address: `x, y`,
         price: getRandomInteger(MIN_PRICE, MAX_PRICE),
-        type: getRandomArrayElement(TYPES),
+        type: getRandomArrayElement(TYPES_EN),
         rooms: getRandomInteger(MIN_ROOMS, MAX_ROOMS),
         guests: getRandomInteger(MIN_GUESTS, MAX_GUESTS),
         checkin: getRandomArrayElement(CHECKTIME),
@@ -126,7 +128,7 @@ const createCard = (obj) => {
   cardItem.querySelector(`.popup__title`).textContent = obj.offer.title;
   cardItem.querySelector(`.popup__text--address`).textContent = obj.offer.address;
   cardItem.querySelector(`.popup__text--price`).innerHTML = `${obj.offer.price} &#x20bd/ночь`;
-  cardItem.querySelector(`.popup__type`).textContent = TYPES[obj.offer.type];
+  cardItem.querySelector(`.popup__type`).textContent = TYPES_RU[obj.offer.type];
   cardItem.querySelector(`.popup__text--capacity`).textContent = `${roomNum}${roomPhrase} для ${guestNum}${guestPhrase}`;
   cardItem.querySelector(`.popup__text--time`).textContent = `Заезд после ${obj.offer.checkin}, выезд после ${obj.offer.checkout}`;
   renderFeatures(obj, cardItem);
