@@ -1,11 +1,18 @@
 'use strict';
 // module3-task1
-const PINS_AREA = document.querySelector(`.map__pins`);
+const mapPins = document.querySelector(`.map__pins`);
 const map = document.querySelector(`.map`);
 map.classList.remove(`map--faded`);
 
 const POSTS_NUMBER = 8;
-const TYPES = [`palace`, `flat`, `house`, `bungalow`];
+const TYPES_EN = [`palace`, `flat`, `house`, `bungalow`];
+
+const TYPES_RU = {
+  palace: `Дворец`,
+  flat: `Квартира `,
+  house: `Дом`,
+  bungalow: `Бунгало`
+};
 const CHECKTIME = [`12:00`, `13:00`, `14:00`];
 const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
 const PHOTOS = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
@@ -28,12 +35,10 @@ const getRandomInteger = (min, max) => {
 const getRandomArrayElement = (arr) => {
   return arr[getRandomInteger(0, arr.length - 1)];
 };
-// Возвращает новый массив случайной длины
-const getRandomArr = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
 // Функция которая возвращает объекты
+const makePost = [];
 const getPinAd = () => {
-  const makePost = [];
   // Цикл который добавляет объекты
   for (let i = 0; i < POSTS_NUMBER; i++) {
     makePost.push({
@@ -44,14 +49,14 @@ const getPinAd = () => {
         title: `Заголовок предложения`,
         address: `x, y`,
         price: getRandomInteger(MIN_PRICE, MAX_PRICE),
-        type: getRandomArrayElement(TYPES),
+        type: getRandomArrayElement(TYPES_EN),
         rooms: getRandomInteger(MIN_ROOMS, MAX_ROOMS),
         guests: getRandomInteger(MIN_GUESTS, MAX_GUESTS),
         checkin: getRandomArrayElement(CHECKTIME),
         checkout: getRandomArrayElement(CHECKTIME),
-        features: getRandomArr(FEATURES),
+        features: FEATURES,
         description: `строка с описанием`,
-        photos: getRandomArrayElement(PHOTOS)
+        photos: PHOTOS
       },
       location: {
         x: getRandomInteger(MIN_LOCATION_X, MAX_LOCATION_X),
@@ -61,7 +66,6 @@ const getPinAd = () => {
   }
   return makePost;
 };
-
 // Заполняет шаблон для отрисовки пина
 const createPinAd = (data) => {
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
@@ -81,6 +85,57 @@ const createPinAd = (data) => {
   return fragment;
 };
 
-// Oтрисовывает пины в DOM
+// Функция для отрисовки features
+const renderFeatures = (obj, templateCopy) => {
+  const cardFeatures = templateCopy.querySelector(`.popup__features`);
+  cardFeatures.innerHTML = ``;
+
+  for (let i = 0; i < obj.offer.features.length; i++) {
+    let li = document.createElement(`li`);
+    li.classList.add(`popup__feature`, `popup__feature--${obj.offer.features[i]}`);
+    cardFeatures.appendChild(li);
+  }
+};
+
+// Функция для отрисовки photo
+const renderPhotos = (obj, templateCopy) => {
+  const cardPhotos = templateCopy.querySelector(`.popup__photos`);
+  const cardPhoto = cardPhotos.querySelector(`.popup__photo`);
+  cardPhoto.src = `${obj.offer.photos[0]}`;
+
+  for (let i = 1; i < obj.offer.photos.length; i++) {
+    let cardPhotoCopy = cardPhoto.cloneNode();
+    cardPhotoCopy.src = `${obj.offer.photos[i]}`;
+
+    cardPhotos.appendChild(cardPhotoCopy);
+  }
+};
+
+// Отрисовывает сгенерированные DOM-элементы в блок mapPins
 const pinAd = getPinAd();
-PINS_AREA.append(createPinAd(pinAd));
+mapPins.append(createPinAd(pinAd));
+const mapFilters = map.querySelector(`.map__filters-container`);
+
+const createCard = (obj) => {
+  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+  const cardItem = cardTemplate.cloneNode(true);
+  const roomNum = obj.offer.rooms;
+  const guestNum = obj.offer.guests;
+  const guestPhrase = ` гостей `;
+  const roomPhrase = ` комнаты `;
+  map.insertBefore(cardItem, mapPins);
+
+  cardItem.querySelector(`.popup__title`).textContent = obj.offer.title;
+  cardItem.querySelector(`.popup__text--address`).textContent = obj.offer.address;
+  cardItem.querySelector(`.popup__text--price`).innerHTML = `${obj.offer.price} &#x20bd/ночь`;
+  cardItem.querySelector(`.popup__type`).textContent = TYPES_RU[obj.offer.type];
+  cardItem.querySelector(`.popup__text--capacity`).textContent = `${roomNum}${roomPhrase} для ${guestNum}${guestPhrase}`;
+  cardItem.querySelector(`.popup__text--time`).textContent = `Заезд после ${obj.offer.checkin}, выезд после ${obj.offer.checkout}`;
+  renderFeatures(obj, cardItem);
+  cardItem.querySelector(`.popup__description`).textContent = obj.offer.description;
+  renderPhotos(obj, cardItem);
+  cardItem.querySelector(`.popup__avatar`).src = obj.author.avatar;
+  mapFilters.insertBefore(cardItem, null);
+};
+
+createCard(makePost[0]);
