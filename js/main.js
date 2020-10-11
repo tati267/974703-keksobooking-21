@@ -1,6 +1,8 @@
 'use strict';
 // module3-task1
 const map = document.querySelector(`.map`);
+// eslint-disable-next-line no-unused-vars
+const card = map.querySelector(`.map__card`);
 const mapPins = document.querySelector(`.map__pins`);
 const mainPin = mapPins.querySelector(`.map__pin--main`);
 const mapFilters = document.querySelector(`.map__filters`);
@@ -53,6 +55,8 @@ const MIN_LOCATION_Y = 130;
 const MAX_LOCATION_Y = 630;
 
 const ENTER = `Enter`;
+// eslint-disable-next-line no-unused-vars
+const ESC = `Escape`;
 const HEADING_MIN_LENGTH = 30;
 const HEADING_MAX_LENGTH = 100;
 
@@ -163,6 +167,15 @@ const createCard = (obj) => {
   renderPhotos(obj, cardItem);
   cardItem.querySelector(`.popup__avatar`).src = obj.author.avatar;
   mapFilters.insertBefore(cardItem, null);
+
+  const closeButton = cardItem.querySelector(`.popup__close`);
+  closeButton.addEventListener(`click`, () => {
+    close();
+  });
+
+  const mapFilterContainer = document.querySelector(`.map__filters-container`);
+  map.insertBefore(cardItem, mapFilterContainer);
+  return cardItem;
 };
 
 // module4-task1
@@ -316,9 +329,8 @@ const makePageActive = () => {
   map.classList.remove(`map--faded`);
   adForm.classList.remove(`ad-form--disabled`);
   mapFilters.classList.remove(`map__filters--disabled`);
-  createCard(makePost[0]);
   mapPins.append(createPinAd(pinAd));
-
+  createCard(makePost[0]);
   fieldsets.forEach((fieldset) => {
     fieldset.removeAttribute(`disabled`, ``);
   });
