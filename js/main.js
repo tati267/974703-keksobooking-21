@@ -178,22 +178,6 @@ const createCard = (obj) => {
 
 // module4-task1
 
-// Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
-
-const getMainPinCoordinates = () => {
-  const offsetX = 31;
-  const offsetY = 84;
-  let pinLocationX = mainPin.offsetLeft + offsetX;
-  let pinLocationY = mainPin.offsetTop + offsetY;
-
-  return [pinLocationX, pinLocationY];
-};
-
-const setAddressInput = () => {
-  const [x, y] = getMainPinCoordinates();
-  addressInput.value = `${x}, ${y}`;
-};
-
 /* Функция которая описывает взаимодействие с меткой и переводит страницу
 в активный режим и приводит к заполнению поля адреса */
 
@@ -309,11 +293,8 @@ const makePageDisabled = () => {
     fieldset.setAttribute(`disabled`, ``);
   });
   addMainPinListener();
-  setAddressInput();
+  setAddressInput(true);
 };
-
-makePageDisabled();
-
 // Функция для интерактивных элементов в активном состоянии
 
 const makePageActive = () => {
@@ -326,5 +307,22 @@ const makePageActive = () => {
     fieldset.removeAttribute(`disabled`, ``);
   });
   removeMainPinListener();
+  setAddressInput();
 };
+// Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
+const getMainPinCoordinates = (isDisabled) => {
+  const PIN_WIDTH = 62;
+  const PIN_HEIGHT = 62;
+  const PIN_HEIGHT_ACTIVE = 84;
+  const offsetX = PIN_WIDTH / 2;
+  const offsetY = isDisabled ? PIN_HEIGHT / 2 : PIN_HEIGHT_ACTIVE;
+  let pinLocationX = mainPin.offsetLeft + offsetX;
+  let pinLocationY = mainPin.offsetTop + offsetY;
 
+  return [pinLocationX, pinLocationY];
+};
+const setAddressInput = (isDisabled) => {
+  const [x, y] = getMainPinCoordinates(isDisabled);
+  addressInput.value = `${x}, ${y}`;
+};
+makePageDisabled();
