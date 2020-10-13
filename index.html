@@ -26,7 +26,7 @@
           <h2 class="map__title">И снова Токио!</h2>
         </div>
         <button class="map__pin map__pin--main" style="left: 570px; top: 375px;">
-          <img src="img/muffin-red.svg" width="40" height="44" draggable="false" alt="Метка объявления">
+          <img class="map__pin--main-img" src="img/muffin-red.svg" width="40" height="44" draggable="false" alt="Метка объявления">
           <svg viewBox="0 0 70 70" width="156" height="156" aria-label="Метка для поиска жилья">
             <defs>
               <path d="M35,35m-23,0a23,23 0 1,1 46,0a23,23 0 1,1 -46,0" id="tophalf" />
@@ -131,7 +131,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" minvalue="0" maxvalue="1000000" placeholder="5000" required>
+          <input id="price" name="price" type="number" minvalue="1000" maxvalue="1000000" placeholder="1000" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>

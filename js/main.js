@@ -1,8 +1,6 @@
 'use strict';
 // module3-task1
 const map = document.querySelector(`.map`);
-// eslint-disable-next-line no-unused-vars
-const card = map.querySelector(`.map__card`);
 const mapPins = document.querySelector(`.map__pins`);
 const mainPin = mapPins.querySelector(`.map__pin--main`);
 const mapFilters = document.querySelector(`.map__filters`);
@@ -55,8 +53,7 @@ const MIN_LOCATION_Y = 130;
 const MAX_LOCATION_Y = 630;
 
 const ENTER = `Enter`;
-// eslint-disable-next-line no-unused-vars
-const ESC = `Escape`;
+const MOUSEDOWN = 0;
 const HEADING_MIN_LENGTH = 30;
 const HEADING_MAX_LENGTH = 100;
 
@@ -168,10 +165,11 @@ const createCard = (obj) => {
   cardItem.querySelector(`.popup__avatar`).src = obj.author.avatar;
   mapFilters.insertBefore(cardItem, null);
 
-  const closeButton = cardItem.querySelector(`.popup__close`);
-  closeButton.addEventListener(`click`, () => {
-    close();
-  });
+  if (document.querySelector(`.popup__close`)) {
+    document.querySelector(`.popup__close`).addEventListener(`click`, function () {
+      document.querySelector(`.map__card`).remove();
+    });
+  }
 
   const mapFilterContainer = document.querySelector(`.map__filters-container`);
   map.insertBefore(cardItem, mapFilterContainer);
@@ -182,17 +180,11 @@ const createCard = (obj) => {
 
 // Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
 
-const MainPinPointer = {
-  WIDTH: 10,
-  HEIGHT: 22
-};
-
 const getMainPinCoordinates = () => {
-  const {left, top} = getComputedStyle(mainPin);
-  const {offsetWidth, offsetHeight} = mainPin;
-
-  const pinLocationX = parseInt(left, 10) + offsetWidth / 2;
-  const pinLocationY = parseInt(top, 10) + offsetHeight + MainPinPointer.HEIGHT;
+  const offsetX = 31;
+  const offsetY = 84;
+  let pinLocationX = mainPin.offsetLeft + offsetX;
+  let pinLocationY = mainPin.offsetTop + offsetY;
 
   return [pinLocationX, pinLocationY];
 };
@@ -216,16 +208,14 @@ const removeMainPinListener = () => {
 };
 
 const onMainPinMousedown = (evt) => {
-  if (evt.button === 0) {
+  if (evt.button === MOUSEDOWN) {
     makePageActive();
-    setAddressInput();
   }
 };
 
 const onMainPinEnterPressed = (evt) => {
   if (evt.key === ENTER) {
     makePageActive();
-    setAddressInput();
   }
 };
 
@@ -319,6 +309,7 @@ const makePageDisabled = () => {
     fieldset.setAttribute(`disabled`, ``);
   });
   addMainPinListener();
+  setAddressInput();
 };
 
 makePageDisabled();
@@ -336,3 +327,4 @@ const makePageActive = () => {
   });
   removeMainPinListener();
 };
+
