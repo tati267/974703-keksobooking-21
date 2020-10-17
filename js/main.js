@@ -66,6 +66,9 @@ const getRandomArrayElement = (arr) => {
   return arr[getRandomInteger(0, arr.length - 1)];
 };
 
+// Возвращает новый массив случайной длины
+const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
+
 // Функция которая возвращает объекты
 const makePost = [];
 const getPinAd = () => {
@@ -84,9 +87,9 @@ const getPinAd = () => {
         guests: getRandomInteger(MIN_GUESTS, MAX_GUESTS),
         checkin: getRandomArrayElement(CHECKTIMES),
         checkout: getRandomArrayElement(CHECKTIMES),
-        features: FEATURES,
+        features: getRandomArray(FEATURES),
         description: `строка с описанием`,
-        photos: PHOTOS
+        photos: getRandomArray(PHOTOS)
       },
       location: {
         x: getRandomInteger(MIN_LOCATION_X, MAX_LOCATION_X),
@@ -100,15 +103,19 @@ const getPinAd = () => {
 const createPinAd = (data) => {
   const fragment = document.createDocumentFragment();
 
-  data.forEach((item) => {
+  data.forEach((pinData) => {
     const pin = pinTemplate.cloneNode(true);
     const img = pin.querySelector(`img`);
 
-    pin.style = `left: ${item.location.x - img.width / 2}px;
-                     top: ${item.location.y - img.height}px;`;
-    img.src = item.author.avatar;
-    img.alt = item.offer.title;
+    pin.style = `left: ${pinData.location.x - img.width / 2}px;
+                     top: ${pinData.location.y - img.height}px;`;
+    img.src = pinData.author.avatar;
+    img.alt = pinData.offer.title;
     fragment.append(pin);
+
+    pin.addEventListener(`click`, () => {
+      openCard(pinData);
+    });
   });
 
   return fragment;
@@ -165,7 +172,7 @@ const createCard = (obj) => {
   cardItem.querySelector(`.popup__avatar`).src = obj.author.avatar;
   mapFilters.insertBefore(cardItem, null);
 
-  if (document.querySelector(`.popup__close`)) {
+  if (cardTemplate) {
     document.querySelector(`.popup__close`).addEventListener(`click`, function () {
       document.querySelector(`.map__card`).remove();
     });
@@ -174,6 +181,31 @@ const createCard = (obj) => {
   const mapFilterContainer = document.querySelector(`.map__filters-container`);
   map.insertBefore(cardItem, mapFilterContainer);
   return cardItem;
+};
+
+const isEscEvent = (evt, callback) => {
+  if (evt.key === `Escape`) {
+    evt.preventDefault();
+    callback();
+  }
+};
+
+const openCard = (pinData) => {
+  closeCard();
+  createCard(pinData);
+  document.addEventListener(`keydown`, onMapEscPress);
+};
+
+const onMapEscPress = (evt) => {
+  isEscEvent(evt, closeCard);
+};
+
+const closeCard = () => {
+  const card = map.querySelector(`.map__card`);
+  if (card) {
+    card.remove();
+    document.removeEventListener(`keydown`, onMapEscPress);
+  }
 };
 
 // module4-task1
@@ -292,6 +324,7 @@ const makePageDisabled = () => {
   fieldsets.forEach((fieldset) => {
     fieldset.setAttribute(`disabled`, ``);
   });
+  closeCard();
   addMainPinListener();
   setAddressInput(true);
 };
@@ -302,7 +335,7 @@ const makePageActive = () => {
   adForm.classList.remove(`ad-form--disabled`);
   mapFilters.classList.remove(`map__filters--disabled`);
   mapPins.append(createPinAd(pinAd));
-  createCard(makePost[0]);
+  createCard(makePost);
   fieldsets.forEach((fieldset) => {
     fieldset.removeAttribute(`disabled`, ``);
   });
