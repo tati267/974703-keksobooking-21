@@ -1,4 +1,5 @@
 'use strict';
+
 // module3-task1
 const map = document.querySelector(`.map`);
 const mapPins = document.querySelector(`.map__pins`);
@@ -335,7 +336,6 @@ const makePageActive = () => {
   adForm.classList.remove(`ad-form--disabled`);
   mapFilters.classList.remove(`map__filters--disabled`);
   mapPins.append(createPinAd(pinAd));
-  createCard(makePost);
   fieldsets.forEach((fieldset) => {
     fieldset.removeAttribute(`disabled`, ``);
   });
