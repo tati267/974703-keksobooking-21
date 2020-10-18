@@ -2,7 +2,6 @@
 
 (function () {
   // перемещение mainPin module5-task2
-
   window.elements.mainPin.addEventListener(`mousedown`, (evt) => {
     evt.preventDefault();
 
@@ -28,8 +27,20 @@
         y: moveEvt.clientY
       };
 
-      window.elements.mainPin.style.top = (window.elements.mainPin.offsetTop - shift.y) + `px`;
-      window.elements.mainPin.style.left = (window.elements.mainPin.offsetLeft - shift.x) + `px`;
+      const movePin = () => {
+        let top = window.elements.mainPin.offsetTop - shift.y;
+        let left = window.elements.mainPin.offsetLeft - shift.x;
+        if (
+          left >= window.util.MIN_LOCATION_X - window.util.PIN_WIDTH / 2 &&
+          left <= window.util.MAX_LOCATION_X - window.util.PIN_WIDTH / 2 &&
+          top >= window.util.MIN_LOCATION_Y - window.util.PIN_HEIGHT_ACTIVE &&
+          top <= window.util.MAX_LOCATION_Y - window.util.PIN_HEIGHT_ACTIVE
+        ) {
+          window.elements.mainPin.style.top = top + `px`;
+          window.elements.mainPin.style.left = left + `px`;
+        }
+      };
+      movePin();
     };
 
     const onMouseUp = (upEvt) => {

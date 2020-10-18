@@ -23,6 +23,9 @@
   const MAX_LOCATION_X = 1200;
   const MIN_LOCATION_Y = 130;
   const MAX_LOCATION_Y = 630;
+  const PIN_WIDTH = 62;
+  const PIN_HEIGHT = 62;
+  const PIN_HEIGHT_ACTIVE = 84;
 
   const ENTER = `Enter`;
   const MOUSEDOWN = 0;
@@ -64,6 +67,9 @@
     MAX_LOCATION_X,
     MIN_LOCATION_Y,
     MAX_LOCATION_Y,
+    PIN_WIDTH,
+    PIN_HEIGHT,
+    PIN_HEIGHT_ACTIVE,
     ENTER,
     MOUSEDOWN,
     HEADING_MIN_LENGTH,
