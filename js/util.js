@@ -3,24 +3,6 @@
 (function () {
   const POSTS_NUMBER = 8;
   const TYPES_EN = [`palace`, `flat`, `house`, `bungalow`];
-  const offerTypes = {
-    palace: {
-      name: `Дворец`,
-      min: 10000
-    },
-    flat: {
-      name: `Квартира`,
-      min: 1000
-    },
-    house: {
-      name: `Дом`,
-      min: 5000
-    },
-    bungalow: {
-      name: `Бунгало`,
-      min: 0
-    }
-  };
 
   const roomValues = {
     1: [1],
@@ -68,7 +50,6 @@
   window.util = {
     POSTS_NUMBER,
     TYPES_EN,
-    offerTypes,
     roomValues,
     CHECKTIMES,
     FEATURES,
