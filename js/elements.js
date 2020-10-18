@@ -18,6 +18,7 @@
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const timeIn = document.querySelector(`#timein`);
   const timeOut = document.querySelector(`#timeout`);
+  const mapFilterContainer = document.querySelector(`.map__filters-container`);
 
   window.elements = {
     map,
@@ -35,6 +36,7 @@
     fieldsets,
     pinTemplate,
     timeIn,
-    timeOut
+    timeOut,
+    mapFilterContainer
   };
 })();

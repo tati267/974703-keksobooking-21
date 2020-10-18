@@ -47,6 +47,13 @@
   const HEADING_MIN_LENGTH = 30;
   const HEADING_MAX_LENGTH = 100;
 
+  const isEscEvent = (evt, callback) => {
+    if (evt.key === `Escape`) {
+      evt.preventDefault();
+      callback();
+    }
+  };
+
   // случайное число в указаном диапазоне
   const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -55,6 +62,8 @@
   const getRandomArrayElement = (arr) => {
     return arr[getRandomInteger(0, arr.length - 1)];
   };
+  // Возвращает новый массив случайной длины
+  const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
   window.util = {
     POSTS_NUMBER,
@@ -78,7 +87,9 @@
     MOUSEDOWN,
     HEADING_MIN_LENGTH,
     HEADING_MAX_LENGTH,
+    isEscEvent,
     getRandomInteger,
-    getRandomArrayElement
+    getRandomArrayElement,
+    getRandomArray
   };
 })();

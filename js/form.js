@@ -94,7 +94,6 @@
     window.elements.adForm.classList.remove(`ad-form--disabled`);
     window.elements.mapFilters.classList.remove(`map__filters--disabled`);
     window.elements.mapPins.append(window.pin.createPinAd(window.pin.pinAd));
-    window.data.createCard(window.data.makePost[0]);
     window.elements.fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
