@@ -52,7 +52,7 @@
     const guestNum = obj.offer.guests;
     const guestPhrase = ` гостей `;
     const roomPhrase = ` комнаты `;
-    window.elements.map.insertBefore(cardItem, window.elements.mapPins);
+    window.elements.map.insertBefore(cardItem, window.elements.pins);
 
     cardItem.querySelector(`.popup__title`).textContent = obj.offer.title;
     cardItem.querySelector(`.popup__text--address`).textContent = obj.offer.address;
@@ -76,17 +76,17 @@
     return cardItem;
   };
 
-  const openCard = (pinData) => {
-    closeCard();
+  const open = (pinData) => {
+    close();
     createCard(pinData);
     document.addEventListener(`keydown`, onMapEscPress);
   };
 
   const onMapEscPress = (evt) => {
-    window.util.isEscEvent(evt, closeCard);
+    window.util.isEscEvent(evt, close);
   };
 
-  const closeCard = () => {
+  const close = () => {
     const card = window.elements.map.querySelector(`.map__card`);
     if (card) {
       card.remove();
@@ -96,7 +96,7 @@
 
   window.card = {
     createCard,
-    openCard,
-    closeCard
+    open,
+    close
   };
 })();

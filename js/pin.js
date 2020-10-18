@@ -16,7 +16,7 @@
       fragment.append(pin);
 
       pin.addEventListener(`click`, () => {
-        window.card.openCard(pinData);
+        window.card.open(pinData);
       });
     });
 
