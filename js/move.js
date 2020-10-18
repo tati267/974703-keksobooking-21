@@ -1,17 +1,22 @@
 "use strict";
 
 (function () {
-  // обработаем событие клика на mainPin
-  window.elements.mainPin.addEventListener(`mousedown`, function (evt) {
+  // перемещение mainPin module5-task2
+
+  window.elements.mainPin.addEventListener(`mousedown`, (evt) => {
     evt.preventDefault();
-    // Запомним координаты точки, с которой мы начали перемещать диалог
+
     let startCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
 
-    let onMouseMove = function (moveEvt) {
+    let dragged = false;
+
+    const onMouseMove = (moveEvt) => {
       moveEvt.preventDefault();
+
+      dragged = true;
 
       let shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -23,10 +28,23 @@
         y: moveEvt.clientY
       };
 
-      setup.style.top = (setup.offsetTop - shift.y) + `px`;
-      setup.style.left = (setup.offsetLeft - shift.x) + `px`;
+      window.elements.mainPin.style.top = (window.elements.mainPin.offsetTop - shift.y) + `px`;
+      window.elements.mainPin.style.left = (window.elements.mainPin.offsetLeft - shift.x) + `px`;
     };
 
+    const onMouseUp = (upEvt) => {
+      upEvt.preventDefault();
+      document.removeEventListener(`mousemove`, onMouseMove);
+      document.removeEventListener(`mouseup`, onMouseUp);
+
+      if (dragged) {
+        const onClickPreventDefault = function (clickEvt) {
+          clickEvt.preventDefault();
+          window.elements.mainPin.removeEventListener(`click`, onClickPreventDefault);
+        };
+        window.elements.mainPin.addEventListener(`click`, onClickPreventDefault);
+      }
+    };
     document.addEventListener(`mousemove`, onMouseMove);
     document.addEventListener(`mouseup`, onMouseUp);
   });
