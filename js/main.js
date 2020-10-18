@@ -72,7 +72,7 @@ const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
 // Функция которая возвращает объекты
 const makePost = [];
-const getPinAd = () => {
+const getPin = () => {
   // Цикл который добавляет объекты
   for (let i = 0; i < POSTS_NUMBER; i++) {
     makePost.push({
@@ -101,7 +101,7 @@ const getPinAd = () => {
   return makePost;
 };
 // Заполняет шаблон для отрисовки пина
-const createPinAd = (data) => {
+const createPin = (data) => {
   const fragment = document.createDocumentFragment();
 
   data.forEach((pinData) => {
@@ -123,8 +123,6 @@ const createPinAd = (data) => {
 };
 
 // module3-task2
-// Отрисовывает сгенерированные DOM-элементы в блок mapPins
-const pinAd = getPinAd();
 
 // Функция для отрисовки features
 const renderFeatures = (obj, templateCopy) => {
@@ -335,7 +333,7 @@ const makePageActive = () => {
   map.classList.remove(`map--faded`);
   adForm.classList.remove(`ad-form--disabled`);
   mapFilters.classList.remove(`map__filters--disabled`);
-  mapPins.append(createPinAd(pinAd));
+  mapPins.append(createPin(getPin()));
   fieldsets.forEach((fieldset) => {
     fieldset.removeAttribute(`disabled`, ``);
   });

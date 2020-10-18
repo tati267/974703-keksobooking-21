@@ -93,7 +93,7 @@
     window.elements.map.classList.remove(`map--faded`);
     window.elements.adForm.classList.remove(`ad-form--disabled`);
     window.elements.mapFilters.classList.remove(`map__filters--disabled`);
-    window.elements.mapPins.append(window.pin.createPin());
+    window.elements.mapPins.append(window.pin.createPin(window.data.getPin()));
     window.elements.fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
