@@ -2,7 +2,7 @@
 
 (function () {
   // Заполняет шаблон для отрисовки пина
-  const createPinAd = (data) => {
+  const createPin = (data) => {
     const fragment = document.createDocumentFragment();
 
     data.forEach((pinData) => {
@@ -22,11 +22,8 @@
 
     return fragment;
   };
-  // Отрисовывает сгенерированные DOM-элементы в блок mapPins
-  const pinAd = window.data.getPinAd();
 
   window.pin = {
-    createPinAd,
-    pinAd,
+    createPin
   };
 })();

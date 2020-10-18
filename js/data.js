@@ -3,7 +3,7 @@
 (function () {
   // Функция которая возвращает объекты
   const makePost = [];
-  const getPinAd = () => {
+  const getPin = () => {
     // Цикл который добавляет объекты
     for (let i = 0; i < window.util.POSTS_NUMBER; i++) {
       makePost.push({
@@ -19,9 +19,9 @@
           guests: window.util.getRandomInteger(window.util.MIN_GUESTS, window.util.MAX_GUESTS),
           checkin: window.util.getRandomArrayElement(window.util.CHECKTIMES),
           checkout: window.util.getRandomArrayElement(window.util.CHECKTIMES),
-          features: window.util.FEATURES,
+          features: window.util.getRandomArray(window.util.FEATURES),
           description: `строка с описанием`,
-          photos: window.util.PHOTOS
+          photos: window.util.getRandomArray(window.util.PHOTOS)
         },
         location: {
           x: window.util.getRandomInteger(window.util.MIN_LOCATION_X, window.util.MAX_LOCATION_X),
@@ -33,7 +33,7 @@
   };
 
   window.data = {
-    getPinAd,
+    getPin,
     makePost
   };
 })();
