@@ -21,7 +21,9 @@
       min: 0
     }
   };
+
   // Функция для отрисовки features
+
   const renderFeatures = (obj, templateCopy) => {
     const cardFeatures = templateCopy.querySelector(`.popup__features`);
     cardFeatures.innerHTML = ``;

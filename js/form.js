@@ -13,6 +13,7 @@
   const capacity = document.querySelector(`#capacity`);
   const capacityOptions = capacity.querySelectorAll(`option`);
   const fieldsets = document.querySelectorAll(`fieldset`);
+
   // Валидация заголовка
 
   headingFormInput.addEventListener(`input`, () => {
@@ -29,6 +30,7 @@
   });
 
   // Валидация цены
+
   const typeHouse = (type) => {
     priceInput.setAttribute(`minvalue`, window.util.offerTypes[type].min);
     priceInput.setAttribute(`placeholder`, window.util.offerTypes[type].min);
@@ -98,6 +100,7 @@
     addMainPinListener();
     setaddress(true);
   };
+
   // Функция для интерактивных элементов в активном состоянии
 
   const makePageActive = () => {
@@ -114,6 +117,7 @@
 
   /* Функция которая описывает взаимодействие с меткой и переводит страницу
 в активный режим и приводит к заполнению поля адреса */
+
   const addMainPinListener = () => {
     window.util.mainPin.addEventListener(`mousedown`, onMainPinMousedown);
     window.util.mainPin.addEventListener(`keydown`, onMainPinEnterPressed);
@@ -135,6 +139,7 @@
       makePageActive();
     }
   };
+  
   // Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
   const getMainPinCoordinates = (isDisabled) => {
     const PIN_WIDTH = 62;

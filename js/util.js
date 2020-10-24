@@ -44,14 +44,17 @@
   };
 
   // случайное число в указаном диапазоне
+
   const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
   // случайное значение из массива
+
   const getRandomArrayElement = (arr) => {
     return arr[getRandomInteger(0, arr.length - 1)];
   };
   // Возвращает новый массив случайной длины
+  
   const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
   window.util = {

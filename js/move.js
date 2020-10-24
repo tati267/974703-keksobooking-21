@@ -1,7 +1,9 @@
 "use strict";
 
 (function () {
+
   // перемещение mainPin module5-task2
+
   window.util.mainPin.addEventListener(`mousedown`, (evt) => {
     evt.preventDefault();
 
