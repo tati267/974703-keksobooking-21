@@ -145,6 +145,7 @@
 
   window.form = {
     makePageActive,
-    makePageDisabled
+    makePageDisabled,
+    setaddress
   };
 })();

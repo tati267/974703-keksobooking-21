@@ -38,6 +38,8 @@
         ) {
           window.elements.mainPin.style.top = top + `px`;
           window.elements.mainPin.style.left = left + `px`;
+
+          window.form.setaddress();
         }
       };
       movePin();
