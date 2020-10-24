@@ -1,6 +1,10 @@
 "use strict";
 
 (function () {
+  const map = document.querySelector(`.map`);
+  const pins = document.querySelector(`.map__pins`);
+  const mainPin = pins.querySelector(`.map__pin--main`);
+
   const POSTS_NUMBER = 8;
   const TYPES_EN = [`palace`, `flat`, `house`, `bungalow`];
 
@@ -51,6 +55,9 @@
   const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
   window.util = {
+    map,
+    pins,
+    mainPin,
     POSTS_NUMBER,
     TYPES_EN,
     roomValues,
