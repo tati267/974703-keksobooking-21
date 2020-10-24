@@ -2,31 +2,32 @@
 
 (function () {
   const map = document.querySelector(`.map`);
-  const mapPins = document.querySelector(`.map__pins`);
-  const mainPin = mapPins.querySelector(`.map__pin--main`);
-  const mapFilters = document.querySelector(`.map__filters`);
-  const adForm = document.querySelector(`.ad-form`);
-  const headingFormInput = adForm.querySelector(`#title`);
-  const addressInput = adForm.querySelector(`#address`);
-  const typeHouseSelect = adForm.querySelector(`#type`);
-  const roomsSelect = adForm.querySelector(`#room_number`);
+  const pins = document.querySelector(`.map__pins`);
+  const mainPin = pins.querySelector(`.map__pin--main`);
+  const filters = document.querySelector(`.map__filters`);
+  const form = document.querySelector(`.ad-form`);
+  const headingFormInput = form.querySelector(`#title`);
+  const address = form.querySelector(`#address`);
+  const typeHouseSelect = form.querySelector(`#type`);
+  const roomsSelect = form.querySelector(`#room_number`);
   const capacity = document.querySelector(`#capacity`);
   const capacityOptions = capacity.querySelectorAll(`option`);
-  const priceInput = adForm.querySelector(`#price`);
+  const priceInput = form.querySelector(`#price`);
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
   const fieldsets = document.querySelectorAll(`fieldset`);
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const timeIn = document.querySelector(`#timein`);
   const timeOut = document.querySelector(`#timeout`);
+  const mapFilterContainer = document.querySelector(`.map__filters-container`);
 
   window.elements = {
     map,
-    mapPins,
+    pins,
     mainPin,
-    mapFilters,
-    adForm,
+    filters,
+    form,
     headingFormInput,
-    addressInput,
+    address,
     typeHouseSelect,
     roomsSelect,
     capacityOptions,
@@ -35,6 +36,7 @@
     fieldsets,
     pinTemplate,
     timeIn,
-    timeOut
+    timeOut,
+    mapFilterContainer
   };
 })();

@@ -78,28 +78,27 @@
 
   const makePageDisabled = () => {
     window.elements.map.classList.add(`map--faded`);
-    window.elements.adForm.classList.add(`ad-form--disabled`);
-    window.elements.mapFilters.classList.add(`map__filters--disabled`);
+    window.elements.form.classList.add(`ad-form--disabled`);
+    window.elements.filters.classList.add(`map__filters--disabled`);
 
     window.elements.fieldsets.forEach((fieldset) => {
       fieldset.setAttribute(`disabled`, ``);
     });
     addMainPinListener();
-    setAddressInput(true);
+    setaddress(true);
   };
   // Функция для интерактивных элементов в активном состоянии
 
   const makePageActive = () => {
     window.elements.map.classList.remove(`map--faded`);
-    window.elements.adForm.classList.remove(`ad-form--disabled`);
-    window.elements.mapFilters.classList.remove(`map__filters--disabled`);
-    window.elements.mapPins.append(window.pin.createPinAd(window.pin.pinAd));
-    window.data.createCard(window.data.makePost[0]);
+    window.elements.form.classList.remove(`ad-form--disabled`);
+    window.elements.filters.classList.remove(`map__filters--disabled`);
+    window.elements.pins.append(window.pin.createPin(window.data.getPin()));
     window.elements.fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
     removeMainPinListener();
-    setAddressInput();
+    setaddress();
   };
 
   /* Функция которая описывает взаимодействие с меткой и переводит страницу
@@ -138,14 +137,15 @@
     return [pinLocationX, pinLocationY];
   };
 
-  const setAddressInput = (isDisabled) => {
+  const setaddress = (isDisabled) => {
     const [x, y] = getMainPinCoordinates(isDisabled);
-    window.elements.addressInput.value = `${x}, ${y}`;
+    window.elements.address.value = `${x}, ${y}`;
   };
   makePageDisabled();
 
   window.form = {
     makePageActive,
-    makePageDisabled
+    makePageDisabled,
+    setaddress
   };
 })();

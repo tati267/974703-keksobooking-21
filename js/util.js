@@ -3,24 +3,6 @@
 (function () {
   const POSTS_NUMBER = 8;
   const TYPES_EN = [`palace`, `flat`, `house`, `bungalow`];
-  const offerTypes = {
-    palace: {
-      name: `Дворец`,
-      min: 10000
-    },
-    flat: {
-      name: `Квартира`,
-      min: 1000
-    },
-    house: {
-      name: `Дом`,
-      min: 5000
-    },
-    bungalow: {
-      name: `Бунгало`,
-      min: 0
-    }
-  };
 
   const roomValues = {
     1: [1],
@@ -41,11 +23,21 @@
   const MAX_LOCATION_X = 1200;
   const MIN_LOCATION_Y = 130;
   const MAX_LOCATION_Y = 630;
+  const PIN_WIDTH = 62;
+  const PIN_HEIGHT = 62;
+  const PIN_HEIGHT_ACTIVE = 84;
 
   const ENTER = `Enter`;
   const MOUSEDOWN = 0;
   const HEADING_MIN_LENGTH = 30;
   const HEADING_MAX_LENGTH = 100;
+
+  const isEscEvent = (evt, callback) => {
+    if (evt.key === `Escape`) {
+      evt.preventDefault();
+      callback();
+    }
+  };
 
   // случайное число в указаном диапазоне
   const getRandomInteger = (min, max) => {
@@ -55,11 +47,12 @@
   const getRandomArrayElement = (arr) => {
     return arr[getRandomInteger(0, arr.length - 1)];
   };
+  // Возвращает новый массив случайной длины
+  const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
   window.util = {
     POSTS_NUMBER,
     TYPES_EN,
-    offerTypes,
     roomValues,
     CHECKTIMES,
     FEATURES,
@@ -74,11 +67,16 @@
     MAX_LOCATION_X,
     MIN_LOCATION_Y,
     MAX_LOCATION_Y,
+    PIN_WIDTH,
+    PIN_HEIGHT,
+    PIN_HEIGHT_ACTIVE,
     ENTER,
     MOUSEDOWN,
     HEADING_MIN_LENGTH,
     HEADING_MAX_LENGTH,
+    isEscEvent,
     getRandomInteger,
-    getRandomArrayElement
+    getRandomArrayElement,
+    getRandomArray
   };
 })();
