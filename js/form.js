@@ -19,9 +19,9 @@
   headingFormInput.addEventListener(`input`, () => {
     const valueLength = headingFormInput.value.length;
     if (valueLength < window.util.HEADING_MIN_LENGTH) {
-      headingFormInput.setCustomValidity(`Еще ` + (window.util.HEADING_MIN_LENGTH - valueLength) + ` симв`);
+      headingFormInput.setCustomValidity(`Еще ${window.util.HEADING_MIN_LENGTH - valueLength} симв`);
     } else if (valueLength > window.util.HEADING_MAX_LENGTH) {
-      headingFormInput.setCustomValidity(`Удалите лишние ` + (valueLength - window.util.HEADING_MAX_LENGTH) + ` симв`);
+      headingFormInput.setCustomValidity(`Удалите лишние ${valueLength - window.util.HEADING_MAX_LENGTH} симв`);
     } else {
       headingFormInput.setCustomValidity(``);
     }
@@ -139,7 +139,7 @@
       makePageActive();
     }
   };
-  
+
   // Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
   const getMainPinCoordinates = (isDisabled) => {
     const PIN_WIDTH = 62;
