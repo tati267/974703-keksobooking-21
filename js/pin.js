@@ -20,7 +20,7 @@
       });
     });
 
-    return fragment;
+    window.elements.pins.appendChild(fragment);
   };
 
   window.pin = {
