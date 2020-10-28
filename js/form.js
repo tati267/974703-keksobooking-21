@@ -1,8 +1,7 @@
 "use strict";
 
 (function () {
-  const timeIn = document.querySelector(`#timein`);
-  const timeOut = document.querySelector(`#timeout`);
+  const filters = document.querySelector(`.map__filters`);
   const form = document.querySelector(`.ad-form`);
   const headingFormInput = form.querySelector(`#title`);
   const address = form.querySelector(`#address`);
@@ -11,7 +10,10 @@
   const capacity = document.querySelector(`#capacity`);
   const capacityOptions = capacity.querySelectorAll(`option`);
   const priceInput = form.querySelector(`#price`);
-  const filters = document.querySelector(`.map__filters`);
+  const fieldsets = document.querySelectorAll(`fieldset`);
+  const timeIn = document.querySelector(`#timein`);
+  const timeOut = document.querySelector(`#timeout`);
+
   // Валидация заголовка
 
   headingFormInput.addEventListener(`input`, () => {
@@ -38,18 +40,18 @@
   );
 
   const customPriceValidation = function (cost) {
-    window.elements.priceInput.setCustomValidity(`Минимальная стоимость этого жилья равна ${cost}`);
+    priceInput.setCustomValidity(`Минимальная стоимость этого жилья равна ${cost}`);
   };
-  window.elements.priceInput.addEventListener(`input`, function () {
+  priceInput.addEventListener(`input`, function () {
     const typeHousingValue = window.elements.typeHouseSelect.value;
-    const priceValue = window.elements.priceInput.value.input;
+    const priceValue = priceInput.value.input;
     const minValue = window.util.offerTypes[typeHousingValue].min;
 
-    window.elements.priceInput.min = minValue;
+    priceInput.min = minValue;
     if (priceValue < minValue) {
       customPriceValidation(minValue);
     }
-    window.elements.priceInput.reportValidity();
+    priceInput.reportValidity();
   });
 
   // Валидация въезда и выезда
@@ -87,11 +89,11 @@
   // Функция для интерактивных элементов в неактивном состоянии
 
   const makePageDisabled = () => {
-    window.elements.map.classList.add(`map--faded`);
+    window.util.map.classList.add(`map--faded`);
     form.classList.add(`ad-form--disabled`);
     filters.classList.add(`map__filters--disabled`);
 
-    window.elements.fieldsets.forEach((fieldset) => {
+    fieldsets.forEach((fieldset) => {
       fieldset.setAttribute(`disabled`, ``);
     });
     addMainPinListener();
@@ -101,11 +103,11 @@
   // Функция для интерактивных элементов в активном состоянии
 
   const makePageActive = () => {
-    window.elements.map.classList.remove(`map--faded`);
-    window.elements.form.classList.remove(`ad-form--disabled`);
+    window.util.map.classList.remove(`map--faded`);
+    form.classList.remove(`ad-form--disabled`);
     filters.classList.remove(`map__filters--disabled`);
     window.backend.load(window.pin.createPin, window.error.message);
-    window.elements.fieldsets.forEach((fieldset) => {
+    fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
     removeMainPinListener();
@@ -115,13 +117,13 @@
   /* Функция которая описывает взаимодействие с меткой и переводит страницу
 в активный режим и приводит к заполнению поля адреса */
   const addMainPinListener = () => {
-    window.elements.mainPin.addEventListener(`mousedown`, onMainPinMousedown);
-    window.elements.mainPin.addEventListener(`keydown`, onMainPinEnterPressed);
+    window.util.mainPin.addEventListener(`mousedown`, onMainPinMousedown);
+    window.util.mainPin.addEventListener(`keydown`, onMainPinEnterPressed);
   };
 
   const removeMainPinListener = () => {
-    window.elements.mainPin.removeEventListener(`mousedown`, onMainPinMousedown);
-    window.elements.mainPin.removeEventListener(`keydown`, onMainPinEnterPressed);
+    window.util.mainPin.removeEventListener(`mousedown`, onMainPinMousedown);
+    window.util.mainPin.removeEventListener(`keydown`, onMainPinEnterPressed);
   };
 
   const onMainPinMousedown = (evt) => {
@@ -142,8 +144,8 @@
     const PIN_HEIGHT_ACTIVE = 84;
     const offsetX = PIN_WIDTH / 2;
     const offsetY = isDisabled ? PIN_HEIGHT / 2 : PIN_HEIGHT_ACTIVE;
-    const pinLocationX = window.elements.mainPin.offsetLeft + offsetX;
-    const pinLocationY = window.elements.mainPin.offsetTop + offsetY;
+    const pinLocationX = window.util.mainPin.offsetLeft + offsetX;
+    const pinLocationY = window.util.mainPin.offsetTop + offsetY;
 
     return [pinLocationX, pinLocationY];
   };

@@ -52,7 +52,7 @@
     const guestNum = obj.offer.guests;
     const guestPhrase = ` гостей `;
     const roomPhrase = ` комнаты `;
-    window.elements.map.insertBefore(cardItem, window.elements.pins);
+    window.util.map.insertBefore(cardItem, window.util.pins);
 
     cardItem.querySelector(`.popup__title`).textContent = obj.offer.title;
     cardItem.querySelector(`.popup__text--address`).textContent = obj.offer.address;
@@ -72,7 +72,7 @@
     }
 
     const mapFilterContainer = document.querySelector(`.map__filters-container`);
-    window.elements.map.insertBefore(cardItem, mapFilterContainer);
+    window.util.map.insertBefore(cardItem, mapFilterContainer);
     return cardItem;
   };
 
@@ -87,7 +87,7 @@
   };
 
   const close = () => {
-    const card = window.elements.map.querySelector(`.map__card`);
+    const card = window.util.map.querySelector(`.map__card`);
     if (card) {
       card.remove();
       document.removeEventListener(`keydown`, onMapEscPress);
