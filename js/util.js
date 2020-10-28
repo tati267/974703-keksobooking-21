@@ -14,6 +14,25 @@
     3: [1, 2, 3],
     100: [0]
   };
+
+  const offerTypes = {
+    palace: {
+      name: `Дворец`,
+      min: 10000
+    },
+    flat: {
+      name: `Квартира`,
+      min: 1000
+    },
+    house: {
+      name: `Дом`,
+      min: 5000
+    },
+    bungalow: {
+      name: `Бунгало`,
+      min: 0
+    }
+  };
   const CHECKTIMES = [`12:00`, `13:00`, `14:00`];
   const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
   const PHOTOS = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
@@ -54,7 +73,7 @@
     return arr[getRandomInteger(0, arr.length - 1)];
   };
   // Возвращает новый массив случайной длины
-  
+
   const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
   window.util = {
@@ -64,6 +83,7 @@
     POSTS_NUMBER,
     TYPES_EN,
     roomValues,
+    offerTypes,
     CHECKTIMES,
     FEATURES,
     PHOTOS,
