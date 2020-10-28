@@ -1,12 +1,15 @@
 "use strict";
 
 (function () {
+  const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
+
   // Заполняет шаблон для отрисовки пина
+  
   const createPin = (data) => {
     const fragment = document.createDocumentFragment();
 
     data.forEach((pinData) => {
-      const pin = window.elements.pinTemplate.cloneNode(true);
+      const pin = pinTemplate.cloneNode(true);
       const img = pin.querySelector(`img`);
 
       pin.style = `left: ${pinData.location.x - img.width / 2}px;

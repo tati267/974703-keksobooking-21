@@ -1,6 +1,8 @@
 "use strict";
 
 (function () {
+  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+
   const offerTypes = {
     palace: {
       name: `Дворец`,
@@ -19,7 +21,9 @@
       min: 0
     }
   };
+
   // Функция для отрисовки features
+
   const renderFeatures = (obj, templateCopy) => {
     const cardFeatures = templateCopy.querySelector(`.popup__features`);
     cardFeatures.innerHTML = ``;
@@ -47,12 +51,12 @@
 
   // Функция для отрисовки объявления
   const createCard = (obj) => {
-    const cardItem = window.elements.cardTemplate.cloneNode(true);
+    const cardItem = cardTemplate.cloneNode(true);
     const roomNum = obj.offer.rooms;
     const guestNum = obj.offer.guests;
     const guestPhrase = ` гостей `;
     const roomPhrase = ` комнаты `;
-    window.elements.map.insertBefore(cardItem, window.elements.pins);
+    window.util.map.insertBefore(cardItem, window.util.pins);
 
     cardItem.querySelector(`.popup__title`).textContent = obj.offer.title;
     cardItem.querySelector(`.popup__text--address`).textContent = obj.offer.address;
@@ -65,14 +69,14 @@
     renderPhotos(obj, cardItem);
     cardItem.querySelector(`.popup__avatar`).src = obj.author.avatar;
 
-    if (window.elements.cardTemplate) {
+    if (cardTemplate) {
       document.querySelector(`.popup__close`).addEventListener(`click`, function () {
         document.querySelector(`.map__card`).remove();
       });
     }
 
     const mapFilterContainer = document.querySelector(`.map__filters-container`);
-    window.elements.map.insertBefore(cardItem, mapFilterContainer);
+    window.util.map.insertBefore(cardItem, mapFilterContainer);
     return cardItem;
   };
 
@@ -87,7 +91,7 @@
   };
 
   const close = () => {
-    const card = window.elements.map.querySelector(`.map__card`);
+    const card = window.util.map.querySelector(`.map__card`);
     if (card) {
       card.remove();
       document.removeEventListener(`keydown`, onMapEscPress);

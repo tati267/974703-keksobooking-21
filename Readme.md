@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [tanya](https://up.htmlacademy.ru/javascript/21/user/974703).
-* Наставник: [Виталий Яковенко](https://htmlacademy.ru/profile/id376639).
+* Наставник: [Максим Прусаков](https://htmlacademy.ru/profile/hikikomori).
 
 ---
 
