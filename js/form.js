@@ -1,28 +1,38 @@
 "use strict";
 
 (function () {
-
+  const timeIn = document.querySelector(`#timein`);
+  const timeOut = document.querySelector(`#timeout`);
+  const form = document.querySelector(`.ad-form`);
+  const headingFormInput = form.querySelector(`#title`);
+  const address = form.querySelector(`#address`);
+  const typeHouseSelect = form.querySelector(`#type`);
+  const roomsSelect = form.querySelector(`#room_number`);
+  const capacity = document.querySelector(`#capacity`);
+  const capacityOptions = capacity.querySelectorAll(`option`);
+  const priceInput = form.querySelector(`#price`);
+  const filters = document.querySelector(`.map__filters`);
   // Валидация заголовка
 
-  window.elements.headingFormInput.addEventListener(`input`, () => {
-    const valueLength = window.elements.headingFormInput.value.length;
+  headingFormInput.addEventListener(`input`, () => {
+    const valueLength = headingFormInput.value.length;
     if (valueLength < window.util.HEADING_MIN_LENGTH) {
-      window.elements.headingFormInput.setCustomValidity(`Еще ` + (window.util.HEADING_MIN_LENGTH - valueLength) + ` симв`);
+      headingFormInput.setCustomValidity(`Еще ` + (window.util.HEADING_MIN_LENGTH - valueLength) + ` симв`);
     } else if (valueLength > window.util.HEADING_MAX_LENGTH) {
-      window.elements.headingFormInput.setCustomValidity(`Удалите лишние ` + (valueLength - window.util.HEADING_MAX_LENGTH) + ` симв`);
+      headingFormInput.setCustomValidity(`Удалите лишние ` + (valueLength - window.util.HEADING_MAX_LENGTH) + ` симв`);
     } else {
-      window.elements.headingFormInput.setCustomValidity(``);
+      headingFormInput.setCustomValidity(``);
     }
 
-    window.elements.headingFormInput.reportValidity();
+    headingFormInput.reportValidity();
   });
 
   // Валидация цены
   const typeHouse = (type) => {
-    window.elements.priceInput.setAttribute(`minvalue`, window.util.offerTypes[type].min);
-    window.elements.priceInput.setAttribute(`placeholder`, window.util.offerTypes[type].min);
+    priceInput.setAttribute(`minvalue`, window.util.offerTypes[type].min);
+    priceInput.setAttribute(`placeholder`, window.util.offerTypes[type].min);
   };
-  window.elements.typeHouseSelect.addEventListener(`change`, (evt) => {
+  typeHouseSelect.addEventListener(`change`, (evt) => {
     typeHouse(evt.target.value);
   }
   );
@@ -45,23 +55,23 @@
   // Валидация въезда и выезда
 
   const onTimeInChange = () => {
-    window.elements.timeOut.value = window.elements.timeIn.value;
+    timeOut.value = timeIn.value;
   };
   const onTimeOutChange = () => {
-    window.elements.timeIn.value = window.elements.timeOut.value;
+    timeIn.value = timeOut.value;
   };
 
-  window.elements.timeIn.addEventListener(`change`, onTimeInChange);
-  window.elements.timeOut.addEventListener(`change`, onTimeOutChange);
+  timeIn.addEventListener(`change`, onTimeInChange);
+  timeOut.addEventListener(`change`, onTimeOutChange);
 
   // Соответствие количества комнат количеству мест
   const checkRoom = (people) => {
-    window.elements.capacityOptions.forEach((element) => {
+    capacityOptions.forEach((element) => {
       element.disabled = true;
     });
 
     window.util.roomValues[people].forEach((seats) => {
-      window.elements.capacityOptions.forEach((element) => {
+      capacityOptions.forEach((element) => {
         if (Number(element.value) === seats) {
           element.disabled = false;
           element.selected = true;
@@ -70,7 +80,7 @@
     });
   };
 
-  window.elements.roomsSelect.addEventListener(`change`, (evt) => {
+  roomsSelect.addEventListener(`change`, (evt) => {
     checkRoom(evt.target.value);
   });
 
@@ -78,8 +88,8 @@
 
   const makePageDisabled = () => {
     window.elements.map.classList.add(`map--faded`);
-    window.elements.form.classList.add(`ad-form--disabled`);
-    window.elements.filters.classList.add(`map__filters--disabled`);
+    form.classList.add(`ad-form--disabled`);
+    filters.classList.add(`map__filters--disabled`);
 
     window.elements.fieldsets.forEach((fieldset) => {
       fieldset.setAttribute(`disabled`, ``);
@@ -87,13 +97,14 @@
     addMainPinListener();
     setaddress(true);
   };
+
   // Функция для интерактивных элементов в активном состоянии
 
   const makePageActive = () => {
     window.elements.map.classList.remove(`map--faded`);
     window.elements.form.classList.remove(`ad-form--disabled`);
-    window.elements.filters.classList.remove(`map__filters--disabled`);
-    window.backend.load(window.pin.createPin);
+    filters.classList.remove(`map__filters--disabled`);
+    window.backend.load(window.pin.createPin, window.error.message);
     window.elements.fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
@@ -139,7 +150,7 @@
 
   const setaddress = (isDisabled) => {
     const [x, y] = getMainPinCoordinates(isDisabled);
-    window.elements.address.value = `${x}, ${y}`;
+    address.value = `${x}, ${y}`;
   };
   makePageDisabled();
 
