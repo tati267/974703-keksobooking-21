@@ -1,6 +1,7 @@
 "use strict";
 
 (function () {
+  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
   const offerTypes = {
     palace: {
       name: `Дворец`,
@@ -47,7 +48,7 @@
 
   // Функция для отрисовки объявления
   const createCard = (obj) => {
-    const cardItem = window.elements.cardTemplate.cloneNode(true);
+    const cardItem = cardTemplate.cloneNode(true);
     const roomNum = obj.offer.rooms;
     const guestNum = obj.offer.guests;
     const guestPhrase = ` гостей `;
@@ -65,7 +66,7 @@
     renderPhotos(obj, cardItem);
     cardItem.querySelector(`.popup__avatar`).src = obj.author.avatar;
 
-    if (window.elements.cardTemplate) {
+    if (cardTemplate) {
       document.querySelector(`.popup__close`).addEventListener(`click`, function () {
         document.querySelector(`.map__card`).remove();
       });
@@ -95,6 +96,7 @@
   };
 
   window.card = {
+    offerTypes,
     createCard,
     open,
     close

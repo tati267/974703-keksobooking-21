@@ -31,8 +31,8 @@
 
   // Валидация цены
   const typeHouse = (type) => {
-    priceInput.setAttribute(`minvalue`, window.util.offerTypes[type].min);
-    priceInput.setAttribute(`placeholder`, window.util.offerTypes[type].min);
+    priceInput.setAttribute(`minvalue`, window.card.offerTypes[type].min);
+    priceInput.setAttribute(`placeholder`, window.card.offerTypes[type].min);
   };
   typeHouseSelect.addEventListener(`change`, (evt) => {
     typeHouse(evt.target.value);
@@ -45,7 +45,7 @@
   priceInput.addEventListener(`input`, function () {
     const typeHousingValue = window.elements.typeHouseSelect.value;
     const priceValue = priceInput.value.input;
-    const minValue = window.util.offerTypes[typeHousingValue].min;
+    const minValue = window.card.offerTypes[typeHousingValue].min;
 
     priceInput.min = minValue;
     if (priceValue < minValue) {
