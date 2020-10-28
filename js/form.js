@@ -19,9 +19,9 @@
   headingFormInput.addEventListener(`input`, () => {
     const valueLength = headingFormInput.value.length;
     if (valueLength < window.util.HEADING_MIN_LENGTH) {
-      headingFormInput.setCustomValidity(`Еще ` + (window.util.HEADING_MIN_LENGTH - valueLength) + ` симв`);
+      headingFormInput.setCustomValidity(`Еще ${window.util.HEADING_MIN_LENGTH - valueLength} симв`);
     } else if (valueLength > window.util.HEADING_MAX_LENGTH) {
-      headingFormInput.setCustomValidity(`Удалите лишние ` + (valueLength - window.util.HEADING_MAX_LENGTH) + ` симв`);
+      headingFormInput.setCustomValidity(`Удалите лишние ${valueLength - window.util.HEADING_MAX_LENGTH} симв`);
     } else {
       headingFormInput.setCustomValidity(``);
     }
@@ -30,9 +30,10 @@
   });
 
   // Валидация цены
+
   const typeHouse = (type) => {
-    priceInput.setAttribute(`minvalue`, window.card.offerTypes[type].min);
-    priceInput.setAttribute(`placeholder`, window.card.offerTypes[type].min);
+    priceInput.setAttribute(`minvalue`, window.util.offerTypes[type].min);
+    priceInput.setAttribute(`placeholder`, window.util.offerTypes[type].min);
   };
   typeHouseSelect.addEventListener(`change`, (evt) => {
     typeHouse(evt.target.value);
@@ -116,6 +117,7 @@
 
   /* Функция которая описывает взаимодействие с меткой и переводит страницу
 в активный режим и приводит к заполнению поля адреса */
+
   const addMainPinListener = () => {
     window.util.mainPin.addEventListener(`mousedown`, onMainPinMousedown);
     window.util.mainPin.addEventListener(`keydown`, onMainPinEnterPressed);
@@ -137,6 +139,7 @@
       makePageActive();
     }
   };
+
   // Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
   const getMainPinCoordinates = (isDisabled) => {
     const PIN_WIDTH = 62;
@@ -157,8 +160,6 @@
   makePageDisabled();
 
   window.form = {
-    makePageActive,
-    makePageDisabled,
     setaddress
   };
 })();

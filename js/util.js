@@ -14,6 +14,7 @@
     3: [1, 2, 3],
     100: [0]
   };
+
   const CHECKTIMES = [`12:00`, `13:00`, `14:00`];
   const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
   const PHOTOS = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
@@ -44,14 +45,17 @@
   };
 
   // случайное число в указаном диапазоне
+
   const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
   // случайное значение из массива
+
   const getRandomArrayElement = (arr) => {
     return arr[getRandomInteger(0, arr.length - 1)];
   };
   // Возвращает новый массив случайной длины
+
   const getRandomArray = (arr) => arr.slice(getRandomInteger(0, arr.length));
 
   window.util = {

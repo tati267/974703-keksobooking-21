@@ -4,6 +4,7 @@
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
   // Заполняет шаблон для отрисовки пина
+  
   const createPin = (data) => {
     const fragment = document.createDocumentFragment();
 
