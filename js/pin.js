@@ -23,7 +23,7 @@
       });
     });
 
-    return fragment;
+    window.util.pins.appendChild(fragment);
   };
 
   window.pin = {

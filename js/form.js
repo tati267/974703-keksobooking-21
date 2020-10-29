@@ -3,16 +3,16 @@
 (function () {
   const filters = document.querySelector(`.map__filters`);
   const form = document.querySelector(`.ad-form`);
-  const address = form.querySelector(`#address`);
   const headingFormInput = form.querySelector(`#title`);
+  const address = form.querySelector(`#address`);
   const typeHouseSelect = form.querySelector(`#type`);
   const roomsSelect = form.querySelector(`#room_number`);
-  const priceInput = form.querySelector(`#price`);
-  const timeIn = document.querySelector(`#timein`);
-  const timeOut = document.querySelector(`#timeout`);
   const capacity = document.querySelector(`#capacity`);
   const capacityOptions = capacity.querySelectorAll(`option`);
+  const priceInput = form.querySelector(`#price`);
   const fieldsets = document.querySelectorAll(`fieldset`);
+  const timeIn = document.querySelector(`#timein`);
+  const timeOut = document.querySelector(`#timeout`);
 
   // Валидация заголовка
 
@@ -32,8 +32,8 @@
   // Валидация цены
 
   const typeHouse = (type) => {
-    priceInput.setAttribute(`minvalue`, window.util.offerTypes[type].min);
-    priceInput.setAttribute(`placeholder`, window.util.offerTypes[type].min);
+    priceInput.setAttribute(`minvalue`, window.card.offerTypes[type].min);
+    priceInput.setAttribute(`placeholder`, window.card.offerTypes[type].min);
   };
   typeHouseSelect.addEventListener(`change`, (evt) => {
     typeHouse(evt.target.value);
@@ -46,7 +46,7 @@
   priceInput.addEventListener(`input`, function () {
     const typeHousingValue = typeHouseSelect.value;
     const priceValue = priceInput.value.input;
-    const minValue = window.util.offerTypes[typeHousingValue].min;
+    const minValue = window.card.offerTypes[typeHousingValue].min;
 
     priceInput.min = minValue;
     if (priceValue < minValue) {
@@ -107,7 +107,7 @@
     window.util.map.classList.remove(`map--faded`);
     form.classList.remove(`ad-form--disabled`);
     filters.classList.remove(`map__filters--disabled`);
-    window.util.pins.append(window.pin.createPin(window.data.getPin()));
+    window.backend.load(window.pin.createPin, window.error.message);
     fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });

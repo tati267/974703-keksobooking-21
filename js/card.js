@@ -2,7 +2,6 @@
 
 (function () {
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
-
   const offerTypes = {
     palace: {
       name: `Дворец`,
@@ -39,6 +38,7 @@
   const renderPhotos = (obj, templateCopy) => {
     const cardPhotos = templateCopy.querySelector(`.popup__photos`);
     const cardPhoto = cardPhotos.querySelector(`.popup__photo`);
+    cardPhotos.innerHTML = ``;
     cardPhoto.src = `${obj.offer.photos[0]}`;
 
     for (let i = 1; i < obj.offer.photos.length; i++) {
@@ -99,6 +99,7 @@
   };
 
   window.card = {
+    offerTypes,
     createCard,
     open,
     close
