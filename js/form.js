@@ -44,7 +44,7 @@
     priceInput.setCustomValidity(`Минимальная стоимость этого жилья равна ${cost}`);
   };
   priceInput.addEventListener(`input`, function () {
-    const typeHousingValue = window.elements.typeHouseSelect.value;
+    const typeHousingValue = typeHouseSelect.value;
     const priceValue = priceInput.value.input;
     const minValue = window.card.offerTypes[typeHousingValue].min;
 
