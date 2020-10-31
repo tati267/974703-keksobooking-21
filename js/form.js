@@ -163,19 +163,14 @@
 
   // отменим действие формы по умолчанию.
   // Диалог закроется, как только данные будут успешно сохранены.
-  const submitHandler = (evt) => {
-    window.backend.save(new FormData(form), () => {
-      form.reset();
-      window.pin.deletePin();
-      makePageDisabled();
-    });
-    evt.preventDefault();
-  };
 
   form.addEventListener(`submit`, (evt) => {
     evt.preventDefault();
-    window.backend.save(submitHandler, window.message.successHandler, window.message.errorHandler);
-    submitHandler();
+    window.backend.save(new FormData(form), window.message.successHandler, window.message.errorHandler);
+    form.reset();
+    window.pin.deletePin();
+    window.card.close();
+    makePageDisabled();
   });
 
   window.form = {
