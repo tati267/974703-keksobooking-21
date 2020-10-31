@@ -68,6 +68,7 @@
   timeOut.addEventListener(`change`, onTimeOutChange);
 
   // Соответствие количества комнат количеству мест
+
   const checkRoom = (people) => {
     capacityOptions.forEach((element) => {
       element.disabled = true;
@@ -107,7 +108,7 @@
     window.util.map.classList.remove(`map--faded`);
     form.classList.remove(`ad-form--disabled`);
     filters.classList.remove(`map__filters--disabled`);
-    window.backend.load(window.pin.createPin, window.error.message);
+    window.backend.load(window.pin.createPin, window.message.error);
     fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
@@ -141,6 +142,7 @@
   };
 
   // Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
+
   const getMainPinCoordinates = (isDisabled) => {
     const PIN_WIDTH = 62;
     const PIN_HEIGHT = 62;
@@ -158,6 +160,23 @@
     address.value = `${x}, ${y}`;
   };
   makePageDisabled();
+
+  // отменим действие формы по умолчанию.
+  // Диалог закроется, как только данные будут успешно сохранены.
+  const submitHandler = (evt) => {
+    window.backend.save(new FormData(form), () => {
+      form.reset();
+      window.pin.deletePin();
+      makePageDisabled();
+    });
+    evt.preventDefault();
+  };
+
+  form.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
+    window.backend.save(submitHandler, window.message.successHandler, window.message.errorHandler);
+    submitHandler();
+  });
 
   window.form = {
     setaddress
