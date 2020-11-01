@@ -99,6 +99,7 @@
       fieldset.setAttribute(`disabled`, ``);
     });
     addMainPinListener();
+    window.pin.mainPinSetInitial();
     setaddress(true);
   };
 
@@ -113,11 +114,11 @@
       fieldset.removeAttribute(`disabled`, ``);
     });
     removeMainPinListener();
+    window.pin.mainPinSetInitial();
     setaddress();
   };
-
   /* Функция которая описывает взаимодействие с меткой и переводит страницу
-в активный режим и приводит к заполнению поля адреса */
+  в активный режим и приводит к заполнению поля адреса */
 
   const addMainPinListener = () => {
     window.util.mainPin.addEventListener(`mousedown`, onMainPinMousedown);
@@ -144,11 +145,8 @@
   // Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
 
   const getMainPinCoordinates = (isDisabled) => {
-    const PIN_WIDTH = 62;
-    const PIN_HEIGHT = 62;
-    const PIN_HEIGHT_ACTIVE = 84;
-    const offsetX = PIN_WIDTH / 2;
-    const offsetY = isDisabled ? PIN_HEIGHT / 2 : PIN_HEIGHT_ACTIVE;
+    const offsetX = window.util.MAIN_PIN.width / 2;
+    const offsetY = isDisabled ? window.util.MAIN_PIN.height / 2 : window.util.MAIN_PIN.heightActive;
     const pinLocationX = window.util.mainPin.offsetLeft + offsetX;
     const pinLocationY = window.util.mainPin.offsetTop + offsetY;
 
@@ -160,7 +158,6 @@
     address.value = `${x}, ${y}`;
   };
   makePageDisabled();
-
   // отменим действие формы по умолчанию.
   // Диалог закроется, как только данные будут успешно сохранены.
 
@@ -168,12 +165,14 @@
     evt.preventDefault();
     window.backend.save(new FormData(form), window.message.successHandler, window.message.errorHandler);
     form.reset();
-    window.pin.deletePin();
+    window.pin.deletePins();
     window.card.close();
     makePageDisabled();
   });
 
   window.form = {
-    setaddress
+    form,
+    setaddress,
+    makePageDisabled
   };
 })();
