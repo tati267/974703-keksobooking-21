@@ -13,15 +13,26 @@
   const fieldsets = document.querySelectorAll(`fieldset`);
   const timeIn = document.querySelector(`#timein`);
   const timeOut = document.querySelector(`#timeout`);
+  const ENTER = `Enter`;
+  const MOUSEDOWN = 0;
+  const HEADING_MIN_LENGTH = 30;
+  const HEADING_MAX_LENGTH = 100;
+
+  const roomValues = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
+  };
 
   // Валидация заголовка
 
   headingFormInput.addEventListener(`input`, () => {
     const valueLength = headingFormInput.value.length;
-    if (valueLength < window.util.HEADING_MIN_LENGTH) {
-      headingFormInput.setCustomValidity(`Еще ${window.util.HEADING_MIN_LENGTH - valueLength} симв`);
-    } else if (valueLength > window.util.HEADING_MAX_LENGTH) {
-      headingFormInput.setCustomValidity(`Удалите лишние ${valueLength - window.util.HEADING_MAX_LENGTH} симв`);
+    if (valueLength < HEADING_MIN_LENGTH) {
+      headingFormInput.setCustomValidity(`Еще ${HEADING_MIN_LENGTH - valueLength} симв`);
+    } else if (valueLength > HEADING_MAX_LENGTH) {
+      headingFormInput.setCustomValidity(`Удалите лишние ${valueLength - HEADING_MAX_LENGTH} симв`);
     } else {
       headingFormInput.setCustomValidity(``);
     }
@@ -32,8 +43,8 @@
   // Валидация цены
 
   const typeHouse = (type) => {
-    priceInput.setAttribute(`minvalue`, window.card.offerTypes[type].min);
-    priceInput.setAttribute(`placeholder`, window.card.offerTypes[type].min);
+    priceInput.setAttribute(`minvalue`, window.util.offerTypes[type].min);
+    priceInput.setAttribute(`placeholder`, window.util.offerTypes[type].min);
   };
   typeHouseSelect.addEventListener(`change`, (evt) => {
     typeHouse(evt.target.value);
@@ -46,7 +57,7 @@
   priceInput.addEventListener(`input`, function () {
     const typeHousingValue = typeHouseSelect.value;
     const priceValue = priceInput.value.input;
-    const minValue = window.card.offerTypes[typeHousingValue].min;
+    const minValue = window.util.offerTypes[typeHousingValue].min;
 
     priceInput.min = minValue;
     if (priceValue < minValue) {
@@ -74,7 +85,7 @@
       element.disabled = true;
     });
 
-    window.util.roomValues[people].forEach((seats) => {
+    roomValues[people].forEach((seats) => {
       capacityOptions.forEach((element) => {
         if (Number(element.value) === seats) {
           element.disabled = false;
@@ -131,13 +142,13 @@
   };
 
   const onMainPinMousedown = (evt) => {
-    if (evt.button === window.util.MOUSEDOWN) {
+    if (evt.button === MOUSEDOWN) {
       makePageActive();
     }
   };
 
   const onMainPinEnterPressed = (evt) => {
-    if (evt.key === window.util.ENTER) {
+    if (evt.key === ENTER) {
       makePageActive();
     }
   };

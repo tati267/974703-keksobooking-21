@@ -2,22 +2,11 @@
 
 (function () {
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
-  const offerTypes = {
-    palace: {
-      name: `Дворец`,
-      min: 10000
-    },
-    flat: {
-      name: `Квартира`,
-      min: 1000
-    },
-    house: {
-      name: `Дом`,
-      min: 5000
-    },
-    bungalow: {
-      name: `Бунгало`,
-      min: 0
+
+  const isEscEvent = (evt, callback) => {
+    if (evt.key === `Escape`) {
+      evt.preventDefault();
+      callback();
     }
   };
 
@@ -61,7 +50,7 @@
     cardItem.querySelector(`.popup__title`).textContent = obj.offer.title;
     cardItem.querySelector(`.popup__text--address`).textContent = obj.offer.address;
     cardItem.querySelector(`.popup__text--price`).innerHTML = `${obj.offer.price} &#x20bd/ночь`;
-    cardItem.querySelector(`.popup__type`).textContent = offerTypes[obj.offer.type].name;
+    cardItem.querySelector(`.popup__type`).textContent = window.util.offerTypes[obj.offer.type].name;
     cardItem.querySelector(`.popup__text--capacity`).textContent = `${roomNum}${roomPhrase} для ${guestNum}${guestPhrase}`;
     cardItem.querySelector(`.popup__text--time`).textContent = `Заезд после ${obj.offer.checkin}, выезд после ${obj.offer.checkout}`;
     renderFeatures(obj, cardItem);
@@ -77,7 +66,6 @@
 
     const mapFilterContainer = document.querySelector(`.map__filters-container`);
     window.util.map.insertBefore(cardItem, mapFilterContainer);
-    return cardItem;
   };
 
   const open = (pinData) => {
@@ -87,7 +75,7 @@
   };
 
   const onMapEscPress = (evt) => {
-    window.util.isEscEvent(evt, close);
+    isEscEvent(evt, close);
   };
 
   const close = () => {
@@ -99,8 +87,6 @@
   };
 
   window.card = {
-    offerTypes,
-    createCard,
     open,
     close
   };
