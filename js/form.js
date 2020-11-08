@@ -13,8 +13,6 @@
   const fieldsets = document.querySelectorAll(`fieldset`);
   const timeIn = document.querySelector(`#timein`);
   const timeOut = document.querySelector(`#timeout`);
-  const ENTER = `Enter`;
-  const MOUSEDOWN = 0;
   const HEADING_MIN_LENGTH = 30;
   const HEADING_MAX_LENGTH = 100;
 
@@ -109,7 +107,7 @@
     fieldsets.forEach((fieldset) => {
       fieldset.setAttribute(`disabled`, ``);
     });
-    addMainPinListener();
+    window.pin.addMainPinListener();
     window.pin.mainPinSetInitial();
     setaddress(true);
   };
@@ -124,33 +122,9 @@
     fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
-    removeMainPinListener();
+    window.pin.removeMainPinListener();
     window.pin.mainPinSetInitial();
     setaddress();
-  };
-  /* Функция которая описывает взаимодействие с меткой и переводит страницу
-  в активный режим и приводит к заполнению поля адреса */
-
-  const addMainPinListener = () => {
-    window.util.mainPin.addEventListener(`mousedown`, onMainPinMousedown);
-    window.util.mainPin.addEventListener(`keydown`, onMainPinEnterPressed);
-  };
-
-  const removeMainPinListener = () => {
-    window.util.mainPin.removeEventListener(`mousedown`, onMainPinMousedown);
-    window.util.mainPin.removeEventListener(`keydown`, onMainPinEnterPressed);
-  };
-
-  const onMainPinMousedown = (evt) => {
-    if (evt.button === MOUSEDOWN) {
-      makePageActive();
-    }
-  };
-
-  const onMainPinEnterPressed = (evt) => {
-    if (evt.key === ENTER) {
-      makePageActive();
-    }
   };
 
   // Функция вызова метода, который устанавливает значения поля ввода адреса/ координаты pointer
@@ -182,8 +156,8 @@
   });
 
   window.form = {
-    form,
     setaddress,
-    makePageDisabled
+    makePageDisabled,
+    makePageActive
   };
 })();
