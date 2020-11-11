@@ -8,9 +8,9 @@
 
     if (evt.target.id === `housing-type`) {
       newData = evt.target.value === `any` ? window.backend.data : window.backend.data.filter((item) => item.offer.type === evt.target.value);
-      window.cards.close();
-      window.pins.deletePins();
-      window.pins.renderPins(newData);
+      window.card.close();
+      window.pin.deletePins();
+      window.pin.createPin(newData);
     }
   });
 

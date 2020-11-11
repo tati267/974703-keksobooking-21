@@ -8,18 +8,20 @@
   const createPin = (data) => {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < MAX_PIN_AMOUNT; i++) {
-      const pin = pinTemplate.cloneNode(true);
-      const img = pin.querySelector(`img`);
+      if (data[i]) {
+        const pin = pinTemplate.cloneNode(true);
+        const img = pin.querySelector(`img`);
 
-      pin.style = `left: ${data[i].location.x - img.width / 2}px;
+        pin.style = `left: ${data[i].location.x - img.width / 2}px;
                      top: ${data[i].location.y - img.height}px;`;
-      img.src = data[i].author.avatar;
-      img.alt = data[i].offer.title;
-      fragment.append(pin);
+        img.src = data[i].author.avatar;
+        img.alt = data[i].offer.title;
+        fragment.append(pin);
 
-      pin.addEventListener(`click`, () => {
-        window.card.open(data[i]);
-      });
+        pin.addEventListener(`click`, () => {
+          window.card.open(data[i]);
+        });
+      }
     }
 
     window.util.pins.appendChild(fragment);
