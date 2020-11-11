@@ -118,12 +118,11 @@
     window.util.map.classList.remove(`map--faded`);
     form.classList.remove(`ad-form--disabled`);
     filters.classList.remove(`map__filters--disabled`);
-    window.backend.load(window.pin.createPin, window.message.error);
+    window.backend.data(window.pin.createPin, window.message.errorHandler);
     fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
     window.pin.removeMainPinListener();
-    window.pin.mainPinSetInitial();
     setaddress();
   };
 

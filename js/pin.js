@@ -4,8 +4,6 @@
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const mapPins = document.querySelector(`.map__pins`);
   const MAX_PIN_AMOUNT = 5;
-  const ENTER = `Enter`;
-  const MOUSEDOWN = 0;
   // Заполняет шаблон для отрисовки пинов
   const createPin = (data) => {
     const fragment = document.createDocumentFragment();
@@ -54,13 +52,13 @@
   };
 
   const onMainPinMousedown = (evt) => {
-    if (evt.button === MOUSEDOWN) {
+    if (evt.button === 0) {
       window.form.makePageActive();
     }
   };
 
   const onMainPinEnterPressed = (evt) => {
-    if (evt.key === ENTER) {
+    if (evt.key === `Enter`) {
       window.form.makePageActive();
     }
   };
