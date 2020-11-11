@@ -118,7 +118,7 @@
     window.util.map.classList.remove(`map--faded`);
     form.classList.remove(`ad-form--disabled`);
     filters.classList.remove(`map__filters--disabled`);
-    window.backend.data(window.pin.createPin, window.message.errorHandler);
+    window.backend.load(window.pin.createPin, window.message.errorHandler);
     fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
