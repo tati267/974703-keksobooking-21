@@ -3,26 +3,24 @@
 (function () {
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const mapPins = document.querySelector(`.map__pins`);
-  const MAX_PIN_AMOUNT = 5;
   // Заполняет шаблон для отрисовки пинов
   const createPin = (data) => {
     const fragment = document.createDocumentFragment();
-    for (let i = 0; i < MAX_PIN_AMOUNT; i++) {
-      if (data[i]) {
-        const pin = pinTemplate.cloneNode(true);
-        const img = pin.querySelector(`img`);
 
-        pin.style = `left: ${data[i].location.x - img.width / 2}px;
-                     top: ${data[i].location.y - img.height}px;`;
-        img.src = data[i].author.avatar;
-        img.alt = data[i].offer.title;
-        fragment.append(pin);
+    data.forEach((item) => {
+      const pin = pinTemplate.cloneNode(true);
+      const img = pin.querySelector(`img`);
 
-        pin.addEventListener(`click`, () => {
-          window.card.open(data[i]);
-        });
-      }
-    }
+      pin.style = `left: ${item.location.x - img.width / 2}px;
+                   top: ${item.location.y - img.height}px;`;
+      img.src = item.author.avatar;
+      img.alt = item.offer.title;
+      fragment.append(pin);
+
+      pin.addEventListener(`click`, () => {
+        window.card.open(item);
+      });
+    });
 
     window.util.pins.appendChild(fragment);
   };

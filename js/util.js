@@ -36,11 +36,22 @@
     maxY: 630
   };
 
+  const addIdToOffer = (array) => {
+    array.forEach((value, index) => {
+      value.offer.offerId = index;
+
+      return value.offer.offerId;
+    });
+
+    return array;
+  };
+
   window.util = {
     map,
     pins,
     mainPin,
     offerTypes,
-    MAIN_PIN
+    MAIN_PIN,
+    addIdToOffer
   };
 })();

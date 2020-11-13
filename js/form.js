@@ -112,14 +112,18 @@
     setaddress(true);
   };
 
+  function onSuccessLoad(data) {
+    window.dataWithId = window.util.addIdToOffer(data);
+
+    window.pin.createPin(window.filter.filterData(window.dataWithId));
+  }
   // Функция для интерактивных элементов в активном состоянии
 
   const makePageActive = () => {
     window.util.map.classList.remove(`map--faded`);
     form.classList.remove(`ad-form--disabled`);
     filters.classList.remove(`map__filters--disabled`);
-    window.pin.createPin(window.backend.data);
-
+    window.backend.load(onSuccessLoad, window.message.errorHandler);
     fieldsets.forEach((fieldset) => {
       fieldset.removeAttribute(`disabled`, ``);
     });
