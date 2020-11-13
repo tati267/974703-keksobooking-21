@@ -32,10 +32,10 @@
         let top = window.util.mainPin.offsetTop - shift.y;
         let left = window.util.mainPin.offsetLeft - shift.x;
         if (
-          left >= window.util.MIN_LOCATION_X - window.util.PIN_WIDTH / 2 &&
-          left <= window.util.MAX_LOCATION_X - window.util.PIN_WIDTH / 2 &&
-          top >= window.util.MIN_LOCATION_Y - window.util.PIN_HEIGHT_ACTIVE &&
-          top <= window.util.MAX_LOCATION_Y - window.util.PIN_HEIGHT_ACTIVE
+          left >= window.util.MAIN_PIN.minX - window.util.MAIN_PIN.width / 2 &&
+          left <= window.util.MAIN_PIN.maxX - window.util.MAIN_PIN.width / 2 &&
+          top >= window.util.MAIN_PIN.minY - window.util.MAIN_PIN.heightActive &&
+          top <= window.util.MAIN_PIN.maxY - window.util.MAIN_PIN.heightActive
         ) {
           window.util.mainPin.style.top = top + `px`;
           window.util.mainPin.style.left = left + `px`;

@@ -1,39 +1,23 @@
 'use strict';
+
 (function () {
-  const errorStatus = (xhr, onLoad, onError) => {
-    let error;
-    switch (xhr.status) {
-      case 200:
-        onLoad(xhr.response);
-        break;
+  const API_URL = `https://21.javascript.pages.academy/keksobooking`;
+  const TIMEOUT_IN_MS = 10000;
 
-      case 400:
-        error = `Неверный запрос`;
-        break;
-      case 401:
-        error = `Пользователь не авторизован`;
-        break;
-      case 404:
-        error = `Ничего не найдено`;
-        break;
-
-      default:
-        error = `Cтатус ответа: : ${xhr.status} ${xhr.statusText}`;
-    }
-
-    if (error) {
-      onError(error);
-    }
+  const Method = {
+    GET: `GET`,
+    POST: `POST`
   };
 
-  const load = (onLoad, onError) => {
-    const TIMEOUT_IN_MS = 10000;
-    const URL = `https://21.javascript.pages.academy/keksobooking/data`;
-    const xhr = new XMLHttpRequest();
+  const getServerResponse = (xhr, onSuccess, onError) => {
     xhr.responseType = `json`;
 
     xhr.addEventListener(`load`, () => {
-      errorStatus(xhr, onLoad, onError);
+      if (xhr.status === 200) {
+        onSuccess(xhr.response);
+      } else {
+        onError(`Ошибка сервера ${xhr.status}`);
+      }
     });
 
     xhr.addEventListener(`error`, () => {
@@ -44,21 +28,22 @@
     });
 
     xhr.timeout = TIMEOUT_IN_MS;
+  };
 
-    xhr.open(`GET`, URL);
+  const load = (onSuccess, onError) => {
+    const xhr = new XMLHttpRequest();
+
+    getServerResponse(xhr, onSuccess, onError);
+
+    xhr.open(Method.GET, `${API_URL}/data`);
     xhr.send();
   };
 
-  const save = (data, onLoad, onError) => {
-    const URL = `https://21.javascript.pages.academy/keksobooking`;
+  const save = (data, onSuccess, onError) => {
     const xhr = new XMLHttpRequest();
-    xhr.responseType = `json`;
 
-    xhr.addEventListener(`load`, () => {
-      errorStatus(xhr, onLoad, onError);
-    });
-
-    xhr.open(`POST`, URL);
+    getServerResponse(xhr, onSuccess, onError);
+    xhr.open(Method.POST, API_URL);
     xhr.send(data);
   };
 
